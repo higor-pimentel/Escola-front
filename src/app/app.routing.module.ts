@@ -5,7 +5,10 @@ import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { FormComponent } from './people/form/form.component';
 
 const routes: Routes = [
-    {path: 'home', loadChildren: () => import('../app/people/people.module').then(m => m.PeopleModule)},
+    
+    {path: '', loadChildren: () => import('../app/home/home.module').then(m => m.HomeModule)},
+    {path: 'turmas', loadChildren: () => import('../app/turmas/turmas.module').then(m => m.TurmasModule)},
+
     {path: '**', component: NotFoundComponent}
 ];
 

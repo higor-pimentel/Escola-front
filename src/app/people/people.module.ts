@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { PeopleRoutingModule } from './people-routing.module';
+
 import { FormModule } from './form/form.module';
 import { SharedModule } from '../shared/shared.module';
 
@@ -11,7 +11,7 @@ import { SharedModule } from '../shared/shared.module';
   imports: [
     CommonModule,
     SharedModule,
-    PeopleRoutingModule
+    FormModule
     
   ]
 })

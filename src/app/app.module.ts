@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { PoModule } from '@po-ui/ng-components';
+import { RouterModule, Router } from '@angular/router';
 
 
 import { AppComponent } from './app.component';
@@ -9,7 +9,8 @@ import { FormModule } from './people/form/form.module';
 import { AppRoutingModule } from './app.routing.module';
 import { SharedModule } from './shared/shared.module';
 import { PeopleModule } from './people/people.module';
-import { RouterModule } from '@angular/router';
+import { HomeModule } from './home/home.module';
+import { TurmasModule } from './turmas/turmas.module';
 
 @NgModule({
   declarations: [
@@ -18,9 +19,13 @@ import { RouterModule } from '@angular/router';
   imports: [
     BrowserModule,
     AppRoutingModule,    
+    RouterModule.forRoot([]),
     SharedModule,
     ErrorsModule,
-    RouterModule.forRoot([])    
+    HomeModule,
+    TurmasModule,
+    PeopleModule,
+    FormModule 
   ],
   providers: [],
   bootstrap: [AppComponent]
