@@ -2,3 +2,7 @@
     margin: 1em auto;
     width: 50% ;
 }
+
+.pointer {
+    cursor: pointer;
+}
