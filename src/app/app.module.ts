@@ -10,9 +10,10 @@ import { SharedModule } from "./shared/shared.module";
 import { PeopleModule } from "./people/people.module";
 import { HomeModule } from "./home/home.module";
 import { TurmasModule } from "./turmas/turmas.module";
+import { SignupComponent } from './home/signup/signup.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, SignupComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

@@ -7,13 +7,16 @@ import { FormComponent } from "./people/form/form.component";
 const routes: Routes = [
   {
     path: "",
-    loadChildren: () =>
-      import("../app/home/home.module").then((m) => m.HomeModule),
+    pathMatch: "full",
+    redirectTo: "home",
+  },
+  {
+    path: "home",
+    loadChildren: "./home/home.module#HomeModule",
   },
   {
     path: "turmas",
-    loadChildren: () =>
-      import("../app/turmas/turmas.module").then((m) => m.TurmasModule),
+    loadChildren: "./turmas/turmas.module#TurmasModule",
   },
 
   { path: "**", component: NotFoundComponent },

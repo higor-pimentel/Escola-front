@@ -8,7 +8,9 @@ import { PoMenuItem } from "@po-ui/ng-components";
   styleUrls: ["./app.component.css"],
 })
 export class AppComponent {
-  readonly menus: Array<PoMenuItem> = [
-    { label: "Home", link: "/", icon: "po-icon-home" },
-  ];
+  readonly itensMenu: Array<PoMenuItem> = [];
+
+  definirItensMenu() {
+    this.itensMenu.push({ label: "Home", link: "/", icon: "po-icon-home" });
+  }
 }

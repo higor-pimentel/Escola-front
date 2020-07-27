@@ -7,8 +7,29 @@ import { TurmasFormComponent } from "./turmas-form/turmas-form.component";
 import { TurmasNewModule } from "./turmas-form/turmas-form.module";
 
 export const turmasRoutes: Routes = [
-  { path: "", component: TurmasListComponent },
-  { path: "new", component: TurmasFormComponent },
+  {
+    path: "",
+
+    children: [
+      {
+        path: "",
+        component: TurmasListComponent,
+        data: {
+          title: "Lista de turmas",
+        },
+      },
+      {
+        path: "new/:turmaId",
+        component: TurmasFormComponent,
+        data: { title: "Nova Turma" },
+      },
+      {
+        path: "edit/:turmaId",
+        component: TurmasFormComponent,
+        data: { title: "Editar Turma" },
+      },
+    ],
+  },
 ];
 
 @NgModule({
