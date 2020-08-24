@@ -4,7 +4,7 @@ import { Routes, RouterModule } from "@angular/router";
 import { TurmasListComponent } from "./turmas-list/turmas-list.component";
 import { TurmasListModule } from "./turmas-list/turmas-list.module";
 import { TurmasFormComponent } from "./turmas-form/turmas-form.component";
-import { TurmasNewModule } from "./turmas-form/turmas-form.module";
+import { TurmasFormModule } from "./turmas-form/turmas-form.module";
 
 export const turmasRoutes: Routes = [
   {
@@ -36,7 +36,7 @@ export const turmasRoutes: Routes = [
   imports: [
     RouterModule.forChild(turmasRoutes),
     TurmasListModule,
-    TurmasNewModule,
+    TurmasFormModule,
   ],
   exports: [RouterModule],
 })

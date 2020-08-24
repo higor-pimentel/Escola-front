@@ -4,45 +4,48 @@ from flask_restful import Api, Resource, reqparse
 
 app = Flask(__name__)
 api = Api(app)
-CORS(app, origins = '*')
+CORS(app, origins='*')
 
-turmas = [
-    {   
-        "turmaId": 123,
-        "descricao": "Uma turma de teste",
-        "anoLetivo": 2019,
-        "periodoLetivo": 10,
-        "numeroVagas": 20
-    },
-    {
-        "turmaId": 122,
-        "descricao": "Uma turma de teste 1",
-        "anoLetivo": 2019,
-        "periodoLetivo": 10,
-        "numeroVagas": 20
-    },
-    {
-        "turmaId": 223,
-        "descricao": "Uma turma de teste 2",
-        "anoLetivo": 2019,
-        "periodoLetivo": 10,
-        "numeroVagas": 20
-    }    
-]
+turmas = [{
+    "turmaId": 123,
+    "descricao": "Uma turma de teste",
+    "anoLetivo": 2019,
+    "periodoLetivo": 10,
+    "numeroVagas": 20,
+    "status": "aberta"
+}, {
+    "turmaId": 122,
+    "descricao": "Uma turma de teste 1",
+    "anoLetivo": 2019,
+    "periodoLetivo": 10,
+    "numeroVagas": 20,
+    "status": "fechado"
+}, {
+    "turmaId": 223,
+    "descricao": "Uma turma de teste 2",
+    "anoLetivo": 2019,
+    "periodoLetivo": 10,
+    "numeroVagas": 20,
+    "status": "limiteDeVagas"
+}]
+
 
 class Turmas(Resource):
-
     def get(self):
-        if(len(turmas) > 0):
-            return {"hasNext": 'true', "itens": turmas}, 200, {'Access-Control-Allow-Origin': '*'}
+        if (len(turmas) > 0):
+            return {
+                "hasNext": "true",
+                "itens": turmas,
+            }, 200, {
+                'Access-Control-Allow-Origin': '*'
+            }
         return "Turmas not found", 404
 
+
 class Turma(Resource):
-
-
     def get(self, turmaId):
         for turma in turmas:
-            if(turmaId == turma["turmaId"]):
+            if (turmaId == turma["turmaId"]):
                 return turma, 200
         return "Turma not found", 404
 
@@ -55,8 +58,9 @@ class Turma(Resource):
         args = parser.parse_args()
 
         for turma in turmas:
-            if(descricao == turma["descricao"]):
-                return "Turma with descricao {} already exists".format(descricao), 400
+            if (descricao == turma["descricao"]):
+                return "Turma with descricao {} already exists".format(
+                    descricao), 400
 
         turma = {
             "tuemaId": int(descricao[:5]),
@@ -76,12 +80,12 @@ class Turma(Resource):
         args = parser.parse_args()
 
         for turma in turmas:
-            if(descricao == turma["descricao"]):
+            if (descricao == turma["descricao"]):
                 turma["anoLetivo"] = args["anoLetivo"]
                 turma["periodoLetivo"] = args["periodoLetivo"]
-                turma["numeroVagas"] = args["numeroVagas"]                
+                turma["numeroVagas"] = args["numeroVagas"]
                 return turma, 200
-        
+
         turma = {
             "descricao": descricao,
             "anoLetivo": args["anoLetivo"],
@@ -95,7 +99,8 @@ class Turma(Resource):
         global turmas
         turmas = [turma for turma in turmas if turma["descricao"] != descricao]
         return "{} is deleted.".format(descricao), 200
-      
+
+
 api.add_resource(Turmas, "/turmas")
 api.add_resource(Turma, "/turma/<int:turmaId>")
 

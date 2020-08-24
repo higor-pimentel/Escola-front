@@ -1,6 +1,7 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
-import { RouterModule, Router } from "@angular/router";
+import { RouterModule } from "@angular/router";
+import { PoModule } from "@po-ui/ng-components";
 
 import { AppComponent } from "./app.component";
 import { ErrorsModule } from "./errors/errors.module";
@@ -10,10 +11,9 @@ import { SharedModule } from "./shared/shared.module";
 import { PeopleModule } from "./people/people.module";
 import { HomeModule } from "./home/home.module";
 import { TurmasModule } from "./turmas/turmas.module";
-import { SignupComponent } from './home/signup/signup.component';
 
 @NgModule({
-  declarations: [AppComponent, SignupComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -23,7 +23,7 @@ import { SignupComponent } from './home/signup/signup.component';
     HomeModule,
     TurmasModule,
     PeopleModule,
-    FormModule,
+    PoModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

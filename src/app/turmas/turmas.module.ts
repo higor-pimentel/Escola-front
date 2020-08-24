@@ -1,12 +1,20 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { SharedModule } from "../shared/shared.module";
-import { Router, RouterModule } from "@angular/router";
+import { RouterModule } from "@angular/router";
 import { TurmasRoutingModule } from "./turmas.routing.module";
-import { TurmasListComponent } from "./turmas-list/turmas-list.component";
+import { TurmasListModule } from "./turmas-list/turmas-list.module";
+import { TurmasFormModule } from "./turmas-form/turmas-form.module";
 
 @NgModule({
   declarations: [],
-  imports: [CommonModule, SharedModule, RouterModule, TurmasRoutingModule],
+  imports: [
+    CommonModule,
+    SharedModule,
+    TurmasListModule,
+    TurmasFormModule,
+    RouterModule,
+    TurmasRoutingModule,
+  ],
 })
 export class TurmasModule {}
