@@ -1,9 +1,16 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnInit, ViewChild } from "@angular/core";
 import { PoPageDynamicEditActions } from "@po-ui/ng-templates";
-import { PoBreadcrumb, PoDynamicFormField } from "@po-ui/ng-components";
+import {
+  PoBreadcrumb,
+  PoDynamicFormField,
+  PoPageAction,
+  PoStepperComponent,
+  PoStepperItem,
+  PoStepperStatus,
+} from "@po-ui/ng-components";
 import { environment } from "src/environments/environment";
-
-var API = environment.API_URL;
+import { NgForm, NgModelGroup } from "@angular/forms";
+import { TurmasDaoService } from "./turmasDao.service";
 
 @Component({
   selector: "app-turmas-form",
@@ -12,76 +19,41 @@ var API = environment.API_URL;
 export class TurmasFormComponent implements OnInit {
   @Input() id: string = "123";
 
-  public readonly serviceApi: string = API + "/turma?" + this.id;
+  @ViewChild(PoStepperComponent) poStepperComponent: PoStepperComponent;
 
-  actions: PoPageDynamicEditActions;
+  actions: PoPageAction[];
+
+  steps: Array<any>;
 
   breadcrumb: PoBreadcrumb;
 
   fields: Array<PoDynamicFormField>;
 
+  dynamicForm: NgForm;
+
+  @ViewChild("Turma", { static: true }) turmaForm: NgForm;
+  @ViewChild("modal", { static: false }) turmaForm: Ng;
+
+  constructor(private turmasDao: TurmasDaoService) {}
+
   ngOnInit(): void {
     this._definirPoPage();
-
-    this._definirCampos();
   }
 
   private _definirPoPage() {
-    this.actions = {
-      save: "turmas",
-      saveNew: "turmas/new",
-      cancel: "turmas",
-    };
+    this.actions = [
+      { label: "Salvar", url: "turmas" },
+      { label: "Cancelar", url: "turmas" },
+    ];
 
     this.breadcrumb = {
       items: [
         { label: "Home", link: "/" },
         { label: "Turmas", link: "/turmas" },
-        { label: "Turma" },
+        { label: "Nova turma" },
       ],
     };
-  }
 
-  private _definirCampos() {
-    this.fields = [
-      {
-        property: "descricao",
-        label: "Descrição",
-        type: "text",
-        gridColumns: 11,
-        required: true,
-      },
-      {
-        property: "anoLetivo",
-        type: "number",
-        label: "Ano Letivo",
-        required: true,
-        gridColumns: 2,
-      },
-      {
-        property: "periodoLetivo",
-        type: "number",
-        label: "Período",
-        gridColumns: 2,
-      },
-      {
-        property: "numeroVagas",
-        type: "number",
-        required: true,
-        gridColumns: 2,
-      },
-      {
-        property: "status",
-        type: "label",
-        booleanFalse: "Fechada",
-        required: true,
-        gridColumns: 5,
-        options: [
-          { value: "aberta", label: "Aberto" },
-          { value: "fechado", label: "Fechado" },
-          { value: "limiteDeVagas", label: "Vagas preenchidas" },
-        ],
-      },
-    ];
+    this.steps = this.turmasDao.steps;
   }
 }

@@ -1,8 +1,50 @@
-<po-page-dynamic-edit
+<po-page-default
   p-title="Nova Turma"
-  [p-service-api]="serviceApi"
   [p-actions]="actions"
-  [p-fields]="fields"
   [p-breadcrumb]="breadcrumb"
 >
-</po-page-dynamic-edit>
+  <div>
+    <po-loading-overlay *ngIf="isLoadingPayment" p-text="Salvando">
+    </po-loading-overlay>
+
+    <po-stepper #stepper p-step-icons p- p-step-size="32">
+      <po-step *ngFor="let step of steps" [p-label]="step.label">
+        <po-widget
+          class="po-md-12"
+          [p-primary-label]="step.primaryLabelWidget"
+          [p-secondary-label]="step.secondaryLabelWidget"
+          (p-primary-action)="stepper.previous()"
+          (p-secondary-action)="stepper.next()"
+          *ngIf="step.label != 'Confirmação'; else finalWidget"
+        >
+          <po-dynamic-form [p-fields]="step.form"></po-dynamic-form>
+
+          <span
+            class="po-icon po-icon-plus-circle po-md-12 pointer"
+            *ngIf="step.label != ('Turma' || 'Confirmação')"
+            (click)="modal.open(step)"
+            ><a class="po-text-color-01">Criar {{ step.label }}</a>
+          </span>
+        </po-widget>
+        <ng-template #finalWidget>
+          <po-widget
+            class="po-md-12"
+            [p-primary-label]="step.primaryLabelWidget"
+            [p-secondary-label]="step.secondaryLabelWidget"
+            (p-primary-action)="stepper.previous()"
+            (p-secondary-action)="comfirmStep(stepper)"
+          >
+            <po-list-view> </po-list-view>
+          </po-widget>
+        </ng-template>
+
+        <po-modal #modal>
+          <po-dynamic-form
+            #modalForm
+            [p-fields]="step.modalForm"
+          ></po-dynamic-form>
+        </po-modal>
+      </po-step>
+    </po-stepper>
+  </div>
+</po-page-default>

@@ -5,6 +5,7 @@ import { RouterModule } from "@angular/router";
 import { TurmasRoutingModule } from "./turmas.routing.module";
 import { TurmasListModule } from "./turmas-list/turmas-list.module";
 import { TurmasFormModule } from "./turmas-form/turmas-form.module";
+import { TurmasDaoService } from "./turmas-form/turmasDao.service";
 
 @NgModule({
   declarations: [],
@@ -16,5 +17,6 @@ import { TurmasFormModule } from "./turmas-form/turmas-form.module";
     RouterModule,
     TurmasRoutingModule,
   ],
+  providers: [TurmasDaoService],
 })
 export class TurmasModule {}

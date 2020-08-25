@@ -2,6 +2,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { PoModule } from "@po-ui/ng-components";
+import { PoStepperModule } from "@po-ui/ng-components";
 
 import { AppComponent } from "./app.component";
 import { ErrorsModule } from "./errors/errors.module";
@@ -24,6 +25,7 @@ import { TurmasModule } from "./turmas/turmas.module";
     TurmasModule,
     PeopleModule,
     PoModule,
+    PoStepperModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
