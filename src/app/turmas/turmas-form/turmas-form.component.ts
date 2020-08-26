@@ -32,7 +32,6 @@ export class TurmasFormComponent implements OnInit {
   dynamicForm: NgForm;
 
   @ViewChild("Turma", { static: true }) turmaForm: NgForm;
-  @ViewChild("modal", { static: false }) turmaForm: Ng;
 
   constructor(private turmasDao: TurmasDaoService) {}
 
