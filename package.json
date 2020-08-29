@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "serve:backend": "ng serve --configuration=backend",
     "build:prod": "node --max-old-space-size=8192 ./node_modules/@angular/cli/bin/ng build --prod",
     "test": "ng test",
     "test:coverage": "ng test --code-coverage",
@@ -31,9 +32,13 @@
     "@totvs/po-theme": "^3.2.0",
     "bootstrap": "^4.5.0",
     "core-js": "^3.6.5",
+    "fs-jetpack": "^3.1.0",
+    "json.date-extensions": "^1.2.2",
+    "lodash-es": "^4.17.15",
     "rxjs": "~6.5.4",
     "rxjs-compat": "^6.5.5",
     "tslib": "^2.0.0",
+    "web-backend-api": "^1.0.1",
     "zone.js": "^0.10.3"
   },
   "devDependencies": {

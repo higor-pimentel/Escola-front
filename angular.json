@@ -31,6 +31,10 @@
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.prod.ts"
+                },
+                {
+                  "replace": "src/app/backend/app-web-backend-api.module.ts",
+                  "with": "src/app/shared/app-web-backend-api.module.ts"
                 }
               ],
               "optimization": true,
@@ -42,6 +46,25 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true
+            },
+            "backend": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
+              "main": "src/main-mem.ts",
+              "tsConfig": "tsconfig.mem.json",
+              "optimization": false,
+              "outputHashing": "all",
+              "sourceMap": true,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": false
             }
           }
         },
@@ -53,6 +76,9 @@
           "configurations": {
             "production": {
               "browserTarget": "matriculas-treino:build:production"
+            },
+            "backend": {
+              "browserTarget": "matriculas-treino:build:backend"
             }
           }
         },

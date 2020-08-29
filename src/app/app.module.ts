@@ -12,6 +12,8 @@ import { SharedModule } from "./shared/shared.module";
 import { PeopleModule } from "./people/people.module";
 import { HomeModule } from "./home/home.module";
 import { TurmasModule } from "./turmas/turmas.module";
+import { WebBackendApiModule } from "web-backend-api";
+import { AppWebBackendApiModule } from "./backend/app-web-backend-api.module";
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,6 +28,8 @@ import { TurmasModule } from "./turmas/turmas.module";
     PeopleModule,
     PoModule,
     PoStepperModule,
+    WebBackendApiModule.forRoot(),
+    AppWebBackendApiModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],

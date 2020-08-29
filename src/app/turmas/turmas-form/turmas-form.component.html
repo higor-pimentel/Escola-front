@@ -1,29 +1,33 @@
-<po-page-default
-  p-title="Nova Turma"
-  [p-actions]="actions"
-  [p-breadcrumb]="breadcrumb"
->
+<po-page-default p-title="Nova Turma" [p-breadcrumb]="breadcrumb">
   <div>
     <po-loading-overlay *ngIf="isLoadingPayment" p-text="Salvando">
     </po-loading-overlay>
 
-    <po-stepper #stepper p-step-icons p- p-step-size="32">
+    <po-stepper #stepper p-step-icons p-step-size="32">
       <po-step *ngFor="let step of steps" [p-label]="step.label">
         <po-widget
           class="po-md-12"
           [p-primary-label]="step.primaryLabelWidget"
           [p-secondary-label]="step.secondaryLabelWidget"
-          (p-primary-action)="stepper.previous()"
-          (p-secondary-action)="stepper.next()"
+          (p-primary-action)="etapaAnterior($event, stepper, step.label)"
+          (p-secondary-action)="
+            proximaEtapa($event, stepper, step.label, stepForm?.form.invalid)
+          "
           *ngIf="step.label != 'Confirmação'; else finalWidget"
         >
-          <po-dynamic-form [p-fields]="step.form"></po-dynamic-form>
+          <po-dynamic-form
+            #stepForm
+            [p-fields]="fields"
+            (p-form)="getForm($event)"
+          ></po-dynamic-form>
 
           <span
             class="po-icon po-icon-plus-circle po-md-12 pointer"
             *ngIf="step.label != ('Turma' || 'Confirmação')"
-            (click)="modal.open(step)"
-            ><a class="po-text-color-01">Criar {{ step.label }}</a>
+            (click)="abrirModal(step)"
+            ><a class="po-text-color-01 po-font-text-large-bold"
+              >Criar {{ step.label }}</a
+            >
           </span>
         </po-widget>
         <ng-template #finalWidget>
@@ -37,14 +41,16 @@
             <po-list-view> </po-list-view>
           </po-widget>
         </ng-template>
-
-        <po-modal #modal>
-          <po-dynamic-form
-            #modalForm
-            [p-fields]="step.modalForm"
-          ></po-dynamic-form>
-        </po-modal>
       </po-step>
     </po-stepper>
   </div>
 </po-page-default>
+
+<po-modal #modal [p-primary-action]="poModal">
+  <po-dynamic-form
+    #modalForm
+    p-auto-focus="nome"
+    [p-fields]="modalFields"
+    (p-form)="getModalForm($event)"
+  ></po-dynamic-form>
+</po-modal>

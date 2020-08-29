@@ -7,14 +7,11 @@ import {
   PoModalComponent,
   PoDisclaimerGroup,
   PoTableColumn,
-  PoModalAction,
-  PoPageListComponent,
 } from "@po-ui/ng-components";
 
-import { TurmasListService } from "./turmas-list.service";
-import { Turma } from "../turma";
-import { ResponseApi } from "./response";
-import { Subject } from "rxjs";
+import { TurmasService } from "../../services/turmas/turmas-list.service";
+import { Turma } from "../../entities/turma/turma.interface";
+import { ResponseApi } from "../../entities/response/response.interface";
 
 @Component({
   selector: "app-turmas",
@@ -44,7 +41,7 @@ export class TurmasListComponent implements OnInit {
 
   @ViewChild("advancedFilterModal") advancedFilter: PoModalComponent;
 
-  constructor(private turmasService: TurmasListService) {}
+  constructor(private turmasService: TurmasService) {}
 
   ngOnInit() {
     this._definirPoPage();
@@ -53,12 +50,11 @@ export class TurmasListComponent implements OnInit {
   }
 
   loadData() {
-    this.turmasService.getTurmas().subscribe((response: ResponseApi) => {
-      this.turmas = response.itens as Turma[];
+    this.turmasService.getAll().subscribe((response: ResponseApi<Turma>) => {
+      this.turmas = response.items as Turma[];
       this.hasNext = response.hasNext;
       this.loading = false;
       this.listaDeTurmas = this.turmas;
-      console.log(this.turmas);
     });
   }
   private _definirColunas() {
@@ -67,7 +63,7 @@ export class TurmasListComponent implements OnInit {
   private _definirPoPage() {
     this.actions = [
       //Usar Router.navigate([])
-      { label: "Criar Turma", url: "turmas/new/:turmaId" },
+      { label: "Criar Turma", url: "turmas/new" },
       { label: "Editar", url: "turmas/edit/:turmaId" },
       { label: "Detalhes", url: "turmas/view/:id" },
       { label: "Remover", action: this.removerTurma.bind(this) },

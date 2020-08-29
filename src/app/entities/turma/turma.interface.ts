@@ -1,7 +1,8 @@
 export interface Turma {
-  id: number;
+  id?: number;
   descricao: string;
   anoLetivo: number;
   periodoLetivo: number;
   numeroVagas: number;
+  status: string;
 }

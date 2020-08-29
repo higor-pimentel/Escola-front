@@ -1,17 +1,17 @@
 import { Injectable, OnInit } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { ResponseApi } from "./response";
 import { environment } from "src/environments/environment";
-import { Turma } from "../turma";
+import { Turma } from "../../entities/turma/turma.interface";
+import { ResponseApi } from "src/app/entities/response/response.interface";
 
 const API = environment.API_URL;
 
 @Injectable({ providedIn: "root" })
-export class TurmasListService {
+export class TurmasService {
   constructor(private http: HttpClient) {}
 
-  getTurmas() {
-    return this.http.get(`${API}/turmas`);
+  getAll() {
+    return this.http.get<ResponseApi<Turma>>(`${API}/turmas`);
   }
 
   filterByDescription(turmas: Turma[], searchTerm: string) {

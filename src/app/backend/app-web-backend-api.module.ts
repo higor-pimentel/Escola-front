@@ -1,0 +1,13 @@
+import { NgModule, ModuleWithProviders } from "@angular/core";
+import { WebBackendApiModule } from "web-backend-api";
+
+@NgModule({})
+export class AppWebBackendApiModule {
+  static forRoot(): ModuleWithProviders<WebBackendApiModule> {
+    return WebBackendApiModule.forRoot();
+  }
+
+  static forFeature(): ModuleWithProviders<WebBackendApiModule> {
+    return WebBackendApiModule.forFeature();
+  }
+}

@@ -1,16 +1,19 @@
 import { Injectable } from "@angular/core";
 import { PoDynamicFormField, PoStepperStatus } from "@po-ui/ng-components";
+import { Validators } from "@angular/forms";
 
 @Injectable()
 export class TurmasDaoService {
   get camposTurma(): Array<PoDynamicFormField> {
+    let data = new Date().getFullYear();
     return [
       {
         property: "descricao",
         label: "Descrição",
         type: "text",
-        gridColumns: 11,
+        gridColumns: 12,
         required: true,
+        maxLength: 120,
       },
       {
         property: "anoLetivo",
@@ -18,18 +21,27 @@ export class TurmasDaoService {
         label: "Ano Letivo",
         required: true,
         gridColumns: 2,
+        minValue: 2000,
+        maxValue: data,
+        errorMessage: "Ano inválido!",
       },
       {
         property: "periodoLetivo",
         type: "number",
         label: "Período",
         gridColumns: 2,
+        minValue: 1,
+        optional: true,
+        errorMessage: "Período inválido!",
       },
       {
         property: "numeroVagas",
         type: "number",
         required: true,
         gridColumns: 2,
+        minValue: 0,
+        maxValue: 60,
+        errorMessage: "Valor inválido!",
       },
       {
         property: "status",
@@ -46,7 +58,25 @@ export class TurmasDaoService {
     ];
   }
 
-  get camposDisciplinas(): Array<PoDynamicFormField> {
+  camposDisciplinas(modal?: boolean): Array<PoDynamicFormField> {
+    if (modal) {
+      return [
+        {
+          property: "nome",
+          label: "Nome",
+          type: "text",
+          gridColumns: 11,
+          required: true,
+        },
+        {
+          property: "cargaHoraria",
+          label: "CH",
+          type: "numer",
+          gridColumns: 4,
+          required: true,
+        },
+      ];
+    }
     return [
       {
         property: "disciplinas",
@@ -59,14 +89,15 @@ export class TurmasDaoService {
           { label: "Matemática", value: 4 },
         ],
         optionsMulti: true,
+        visible: false,
       },
     ];
   }
-  camposAlunos(modal: boolean): Array<PoDynamicFormField> {
+  camposAlunos(modal?: boolean): Array<PoDynamicFormField> {
     if (modal) {
       return [
         {
-          property: "Nome",
+          property: "nome",
           label: "Nome",
           type: "text",
           gridColumns: 11,
@@ -107,6 +138,7 @@ export class TurmasDaoService {
           { label: "Fulana", value: 4 },
         ],
         optionsMulti: true,
+        visible: false,
       },
     ];
   }
@@ -120,20 +152,18 @@ export class TurmasDaoService {
         status: PoStepperStatus.Default,
         primaryLabelWidget: " ",
         secondaryLabelWidget: StepLabels.NEXT,
-        form: this.camposTurma,
       },
       {
         label: "Disciplinas",
         primaryLabelWidget: StepLabels.PREVIOUS,
         secondaryLabelWidget: StepLabels.NEXT,
-        form: this.camposDisciplinas,
+        modalForm: this.camposDisciplinas(true),
       },
       {
         label: "Alunos",
         primaryLabelWidget: StepLabels.PREVIOUS,
         secondaryLabelWidget: StepLabels.NEXT,
-        form: this.camposAlunos(false),
-        modalForm: this.camposAlunos(true),
+        modalForm: this.camposDisciplinas(true),
       },
       {
         label: "Confirmação",
@@ -141,6 +171,14 @@ export class TurmasDaoService {
         secondaryLabelWidget: StepLabels.FINAL,
       },
     ];
+  }
+
+  get allFields(): Array<PoDynamicFormField> {
+    return [].concat(
+      this.camposTurma,
+      this.camposDisciplinas(),
+      this.camposAlunos()
+    );
   }
 }
 

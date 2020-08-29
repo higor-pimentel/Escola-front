@@ -5,13 +5,15 @@ import { RouterModule } from "@angular/router";
 import { TurmasRoutingModule } from "./turmas.routing.module";
 import { TurmasListModule } from "./turmas-list/turmas-list.module";
 import { TurmasFormModule } from "./turmas-form/turmas-form.module";
-import { TurmasDaoService } from "./turmas-form/turmasDao.service";
+import { TurmasDaoService } from "../services/turmas/turmasDao.service";
+import { FormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
     SharedModule,
+    FormsModule,
     TurmasListModule,
     TurmasFormModule,
     RouterModule,
