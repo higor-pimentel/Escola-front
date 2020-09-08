@@ -1,18 +1,11 @@
-<po-page-default 
-    [p-title]="title"
-    [p-actions]="actions"
-    [p-breadcrumb]="breadcrumb"
+<po-page-default
+  [p-title]="title"
+  [p-actions]="actions"
+  [p-breadcrumb]="breadcrumb"
 >
-    <app-widget 
-        primaryText="Turmas"
-        text="text"
-        (clicked)="load($event)"
-    ></app-widget>
-    <app-widget
-        primaryText="Disciplinas"
-        [title]="widgetTitle"
-        (clicked)="load($event)"        
-    ></app-widget>
-
-
+  <app-widget primaryText="Turmas" (clicked)="loadTurmas($event)"></app-widget>
+  <app-widget
+    primaryText="Disciplinas"
+    (clicked)="loadDisciplinas($event)"
+  ></app-widget>
 </po-page-default>

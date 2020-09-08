@@ -1,9 +1,4 @@
-import {
-  dataService,
-  IBackendService,
-  ResponseInterceptorFn,
-  IInterceptorUtils,
-} from "web-backend-api";
+import { dataService, IBackendService } from "web-backend-api";
 import { collectionName, turmas } from "./turmas.mock";
 
 dataService(collectionName, (dbService: IBackendService) => {

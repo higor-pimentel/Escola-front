@@ -51,13 +51,12 @@ export class HomeComponent {
     private router: Router
   ) {}
 
-  load(widget: string) {
-    if (widget == "turmas") {
-      this.router.navigate([widget]);
-    }
-    if (widget == "disciplinas") {
-      this.router.navigate([widget]);
-    }
+  loadTurmas(widget: string) {
+    this.router.navigate([widget]);
+  }
+
+  loadDisciplinas(widget: string) {
+    this.router.navigate([widget]);
   }
 
   modalClose() {

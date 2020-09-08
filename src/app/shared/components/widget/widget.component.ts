@@ -10,8 +10,6 @@ export class WidgetComponent {
   @Output() clicked = new EventEmitter<string>();
 
   load(event: Event) {
-    let tipo = <HTMLDivElement>event.target;
-    let widget = tipo.innerHTML.toLowerCase().replace(/\s+/g, "");
-    this.clicked.emit(widget);
+    this.clicked.emit(this.primaryText.toLowerCase().replace(/\s+/g, ""));
   }
 }

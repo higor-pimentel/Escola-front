@@ -58,25 +58,7 @@ export class TurmasDaoService {
     ];
   }
 
-  camposDisciplinas(modal?: boolean): Array<PoDynamicFormField> {
-    if (modal) {
-      return [
-        {
-          property: "nome",
-          label: "Nome",
-          type: "text",
-          gridColumns: 11,
-          required: true,
-        },
-        {
-          property: "cargaHoraria",
-          label: "CH",
-          type: "numer",
-          gridColumns: 4,
-          required: true,
-        },
-      ];
-    }
+  get camposDisciplinas(): Array<PoDynamicFormField> {
     return [
       {
         property: "disciplinas",
@@ -89,7 +71,25 @@ export class TurmasDaoService {
           { label: "Matemática", value: 4 },
         ],
         optionsMulti: true,
-        visible: false,
+      },
+    ];
+  }
+
+  get camposDisciplinasModal(): Array<PoDynamicFormField> {
+    return [
+      {
+        property: "nome",
+        label: "Nome",
+        type: "text",
+        gridColumns: 11,
+        required: true,
+      },
+      {
+        property: "cargaHoraria",
+        label: "CH",
+        type: "numer",
+        gridColumns: 4,
+        required: true,
       },
     ];
   }
@@ -138,7 +138,6 @@ export class TurmasDaoService {
           { label: "Fulana", value: 4 },
         ],
         optionsMulti: true,
-        visible: false,
       },
     ];
   }
@@ -152,18 +151,21 @@ export class TurmasDaoService {
         status: PoStepperStatus.Default,
         primaryLabelWidget: " ",
         secondaryLabelWidget: StepLabels.NEXT,
+        form: this.camposTurma,
       },
       {
         label: "Disciplinas",
         primaryLabelWidget: StepLabels.PREVIOUS,
         secondaryLabelWidget: StepLabels.NEXT,
-        modalForm: this.camposDisciplinas(true),
+        form: this.camposDisciplinas,
+        modalForm: this.camposDisciplinasModal,
       },
       {
         label: "Alunos",
         primaryLabelWidget: StepLabels.PREVIOUS,
         secondaryLabelWidget: StepLabels.NEXT,
-        modalForm: this.camposDisciplinas(true),
+        form: this.camposAlunos(),
+        modalForm: this.camposDisciplinasModal,
       },
       {
         label: "Confirmação",
@@ -176,7 +178,7 @@ export class TurmasDaoService {
   get allFields(): Array<PoDynamicFormField> {
     return [].concat(
       this.camposTurma,
-      this.camposDisciplinas(),
+      this.camposDisciplinas,
       this.camposAlunos()
     );
   }

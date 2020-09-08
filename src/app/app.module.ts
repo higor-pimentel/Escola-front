@@ -14,6 +14,7 @@ import { HomeModule } from "./home/home.module";
 import { TurmasModule } from "./turmas/turmas.module";
 import { WebBackendApiModule } from "web-backend-api";
 import { AppWebBackendApiModule } from "./backend/app-web-backend-api.module";
+import { DisciplinasModule } from "./disciplinas/disciplinas.module";
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,6 +26,7 @@ import { AppWebBackendApiModule } from "./backend/app-web-backend-api.module";
     ErrorsModule,
     HomeModule,
     TurmasModule,
+    DisciplinasModule,
     PeopleModule,
     PoModule,
     PoStepperModule,

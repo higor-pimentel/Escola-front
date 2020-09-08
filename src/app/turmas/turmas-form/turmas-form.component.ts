@@ -23,7 +23,7 @@ import {
   PoDynamicFormValidation,
 } from "@po-ui/ng-components";
 import { environment } from "src/environments/environment";
-import { NgForm, NgModelGroup } from "@angular/forms";
+import { NgForm, NgModelGroup, Validators } from "@angular/forms";
 import { TurmasDaoService } from "../../services/turmas/turmasDao.service";
 import { TurmasService } from "src/app/services/turmas/turmas-list.service";
 import { DisciplinasService } from "src/app/services/disciplinas/disciplinas.service";
@@ -41,6 +41,7 @@ export class TurmasFormComponent implements OnInit {
   modalForm: NgForm;
 
   steps: Array<any>;
+  camposValidados: string[];
 
   breadcrumb: PoBreadcrumb;
 
@@ -50,6 +51,7 @@ export class TurmasFormComponent implements OnInit {
   passoAtual: string;
 
   @ViewChild("modal", { static: false }) modal: PoModalComponent;
+  @ViewChild("stepper", { static: true }) stepper: PoStepperComponent;
 
   constructor(
     private disciplinasService: DisciplinasService,
@@ -61,6 +63,7 @@ export class TurmasFormComponent implements OnInit {
 
   ngOnInit(): void {
     this._definirPoPage();
+    this.camposValidados = ["status", "disciplinas", "alunos"];
   }
 
   private _definirPoPage() {
@@ -73,7 +76,7 @@ export class TurmasFormComponent implements OnInit {
     };
 
     this.steps = this.turmasDao.steps;
-    this.fields = this.turmasDao.allFields;
+    this.fields = this.turmasDao.camposDisciplinas;
   }
 
   getForm(form: NgForm) {
@@ -103,13 +106,18 @@ export class TurmasFormComponent implements OnInit {
   }
   proximaEtapa(
     event: Event,
-    stepper: PoStepperComponent,
+    stepper2: PoStepperComponent,
     passo: string,
     invalid: boolean
   ) {
     this.stepForm.onSubmit(event);
 
-    !invalid ? stepper.next() : this.poNotification.warning("Dados inválidos!");
+    if (invalid) {
+      this.poNotification.warning("Dados inválidos!");
+      return;
+    }
+    console.log(this.stepper.currentStepIndex);
+    this.stepper.next();
   }
 
   comfirmStep(stepper: PoStepperComponent) {
@@ -118,21 +126,11 @@ export class TurmasFormComponent implements OnInit {
 
   abrirModal(step) {
     step.label == "Disciplinas"
-      ? ((this.modalFields = this.turmasDao.camposDisciplinas(true)),
+      ? ((this.modalFields = this.turmasDao.camposDisciplinasModal),
         (this.modal.title = "Criar Disciplina"))
       : ((this.modalFields = this.turmasDao.camposAlunos(true)),
         (this.modal.title = "Criar Aluno"));
 
     this.modal.open();
-  }
-
-  validarForm(
-    changedValue: PoDynamicFormFieldChanged
-  ): PoDynamicFormValidation {
-    if (changedValue.property === "descricao") {
-      console.log(changedValue);
-
-      return {};
-    }
   }
 }

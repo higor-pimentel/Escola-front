@@ -7,11 +7,11 @@ import {
   PoModalComponent,
   PoDisclaimerGroup,
   PoTableColumn,
+  PoResponseApi,
 } from "@po-ui/ng-components";
 
 import { TurmasService } from "../../services/turmas/turmas-list.service";
 import { Turma } from "../../entities/turma/turma.interface";
-import { ResponseApi } from "../../entities/response/response.interface";
 
 @Component({
   selector: "app-turmas",
@@ -50,7 +50,7 @@ export class TurmasListComponent implements OnInit {
   }
 
   loadData() {
-    this.turmasService.getAll().subscribe((response: ResponseApi<Turma>) => {
+    this.turmasService.getAll().subscribe((response: PoResponseApi) => {
       this.turmas = response.items as Turma[];
       this.hasNext = response.hasNext;
       this.loading = false;

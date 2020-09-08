@@ -2,7 +2,6 @@ import { Routes, RouterModule } from "@angular/router";
 import { NgModule } from "@angular/core";
 
 import { NotFoundComponent } from "./errors/not-found/not-found.component";
-import { FormComponent } from "./people/form/form.component";
 
 const routes: Routes = [
   {
@@ -17,6 +16,10 @@ const routes: Routes = [
   {
     path: "turmas",
     loadChildren: "./turmas/turmas.module#TurmasModule",
+  },
+  {
+    path: "disciplinas",
+    loadChildren: "./disciplinas/disciplinas.module#DisciplinasModule",
   },
 
   { path: "**", component: NotFoundComponent },

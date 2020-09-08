@@ -19,6 +19,11 @@ export const turmasRoutes: Routes = [
         },
       },
       {
+        path: "disciplinas",
+        component: TurmasFormComponent,
+        data: { title: "Nova Turma" },
+      },
+      {
         path: "new",
         component: TurmasFormComponent,
         data: { title: "Nova Turma" },

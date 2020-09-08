@@ -14,6 +14,14 @@ export class AppComponent implements OnInit {
     this.definirItensMenu();
   }
   definirItensMenu() {
-    this.itensMenu.push({ label: "Home", link: "/", icon: "po-icon-home" });
+    this.itensMenu.push(
+      { label: "Home", link: "/", icon: "po-icon-home" },
+      { label: "Turmas", link: "/turmas", icon: "po-icon po-icon-arrow-right" },
+      {
+        label: "Disciplinas",
+        link: "/disciplinas",
+        icon: "po-icon po-icon-arrow-right",
+      }
+    );
   }
 }

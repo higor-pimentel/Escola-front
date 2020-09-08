@@ -1,0 +1,41 @@
+<po-page-list
+  p-title="Lista de Disciplinas"
+  [p-actions]="actions"
+  [p-breadcrumb]="breadcrumb"
+  [p-filter]="filterSettings"
+  [p-disclaimer-group]="disclaimerGroup"
+>
+  <div>
+    <po-table
+      [p-columns]="colunasTable"
+      [p-items]="listaDeDisciplinas"
+      p-container="border"
+      p-selectable="true"
+      p-single-select="true"
+      p-sort="true"
+      p-striped="true"
+      [p-loading]="loading"
+      [p-show-more-disabled]="!hasNext"
+      (p-show-more)="loadData()"
+    >
+    </po-table>
+  </div>
+</po-page-list>
+
+<po-modal
+  #advancedFilterModal
+  p-title="Busca Avançada"
+  [p-primary-action]="advancedFilterAction"
+>
+  <form #f="ngForm">
+    <po-multiselect name=""> </po-multiselect>
+
+    <po-checkbox-group
+      name="status"
+      [(ngModel)]="status"
+      p-label="Status"
+      [p-options]="statusOptions"
+    >
+    </po-checkbox-group>
+  </form>
+</po-modal>
